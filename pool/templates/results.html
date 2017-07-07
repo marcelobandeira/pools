@@ -5,13 +5,60 @@
 	<title>Question</title>
 	<link href="{% static 'styles/bootstrap.css' %}" rel="stylesheet">
 	<link href="{% static 'styles/main.css' %}" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+		    // Build the chart
+		    Highcharts.chart('container', {
+		        chart: {
+		            plotBackgroundColor: null,
+		            plotBorderWidth: null,
+		            plotShadow: false,
+		            type: 'pie'
+		        },
+		        title: {
+		            text: 'Percentage of Each Choice'
+		        },
+		        tooltip: {
+		            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+		        },
+		        plotOptions: {
+		            pie: {
+		                allowPointSelect: true,
+		                cursor: 'pointer',
+		                dataLabels: {
+		                    enabled: false
+		                },
+		                showInLegend: true
+		            }
+		        },
+		        series: [{
+		            name: 'Choices',
+		            colorByPoint: true,
+		            data: [
+		            {% for choice in choices.all %}
+		            	{
+		                	name: '{{choice.choice_text}}',
+		                	y: {{choice.votes}}
+		                },
+		            {% endfor %}
+		            ]
+		        }]
+		    })
+		})
+	</script>
 </head>
 <body>
-	<h1>Results - {{question.question_text}}</h1>
-	<p>{{question.pub_date}}</p>
-	<p>Total votes: {{total_votes.soma}}, {{question.number}}</p>
-	{% for choice in choices.all %}
-		<p>{{choice.choice_text}} - {{choice.votes}} votes - {{choice.percent}}%</p>
-	{% endfor %}
+	<div class="container text-center">
+		<h1>Results - {{question.question_text}}</h1>
+		<p>{{question.pub_date}}</p>
+		<p>Total votes: {{total_votes.soma}}, {{question.number}}</p>
+		{% for choice in choices.all %}
+			<p>{{choice.choice_text}} - {{choice.votes}} votes</p>
+		{% endfor %}
+
+		<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+	</div>
 </body>
 </html>

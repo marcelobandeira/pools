@@ -7,11 +7,13 @@
 	<link href="{% static 'styles/main.css' %}" rel="stylesheet">
 </head>
 <body>
-	<h1>{{question.question_text}}</h1>
-	<p>{{question.pub_date}}</p>
+	<div class="container">
+		<h1>{{question.question_text}}</h1>
+		<p>{{question.pub_date}}</p>
 
-	{% for choice in question.choices.all %}
-		<p>{{choice.choice_text}} <a href="{% url 'add_vote' choice.id %}">vote</a></p>
-	{% endfor %}
+		{% for choice in question.choices.all %}
+			<p>{{choice.choice_text}} <a href="{% url 'add_vote' choice.id %}">vote</a></p>
+		{% endfor %}
+	</div>
 </body>
 </html>
