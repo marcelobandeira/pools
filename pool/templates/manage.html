@@ -1,0 +1,31 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Question</title>
+	<link href="{% static 'styles/bootstrap.css' %}" rel="stylesheet">
+	<link href="{% static 'styles/main.css' %}" rel="stylesheet">
+</head>
+<body>
+	<h1>Manage Question</h1>
+	<h4>{{question.question_text}}
+		<a href="{% url 'close' question.id %}">
+			{% if question.closed %}
+				Open
+			{% else %}
+				Close
+			{% endif %}
+		</a>
+	</h4>
+	<p>{{question.pub_date}}</p>
+
+	{% for choice in question.choices.all %}
+		<p>{{choice.choice_text}} <a onclick="return confirm('Are you sure?')" href="{% url 'remove' question.id choice.id %}">Remover</a></p>
+	{% endfor %}
+
+	<h5>Free choices</h5>
+	{% for choice in free_choices.all %}
+		<p>{{choice.choice_text}} <a href="{% url 'add_to_question' question.id choice.id %}">Add to this Question</a></p>
+	{% endfor %}
+</body>
+</html>

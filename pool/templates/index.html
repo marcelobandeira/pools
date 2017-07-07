@@ -1,0 +1,43 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pools</title>
+	<link href="{% static 'styles/bootstrap.css' %}" rel="stylesheet">
+	<link href="{% static 'styles/main.css' %}" rel="stylesheet">
+</head>
+<body>
+	<h1>App Pools</h1>
+	<div class="panel panel-default">
+	  <!-- Default panel contents -->
+		{% if questions %}
+	  		<div class="panel-heading">All Questions</div>
+
+	  		<table class="table">
+	    		<tr>
+	    			<th>Question</th>
+	    			<th>Publication date</th>
+	    			<th>Options</th>
+	    		</tr>
+				{% for q in questions %}
+					<tr>
+						<td><a href="{% url 'question' q.id %}">{{q.question_text}}</a></td>
+						<td>{{q.pub_date}}</td>
+						<td>
+							{% if q.closed %}
+							<a href="{% url 'results' q.id %}">Results</a>
+							{% endif %}
+							{% if not q.closed %}
+							<a href="{% url 'vote' q.id %}">Vote</a>
+							{% endif %}
+							<a href="{% url 'manage' q.id %}">Manage</a>
+						</td>
+					</tr>
+				{% endfor %}
+	  		</table>
+		{% else %}
+			<p>No questions found</p>
+		{% endif %}
+	</div>
+</body>
+</html>

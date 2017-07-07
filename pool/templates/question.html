@@ -1,0 +1,17 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Questao</title>
+	<link href="{% static 'styles/bootstrap.css' %}" rel="stylesheet">
+	<link href="{% static 'styles/main.css' %}" rel="stylesheet">
+</head>
+<body>
+	<h1>{{question.question_text}}</h1>
+	<p>{{question.pub_date}}</p>
+
+	{% for choice in question.choices.all %}
+		<p>{{choice.choice_text}}</p>
+	{% endfor %}
+</body>
+</html>

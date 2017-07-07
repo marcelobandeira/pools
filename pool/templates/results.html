@@ -1,0 +1,17 @@
+{% load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Question</title>
+	<link href="{% static 'styles/bootstrap.css' %}" rel="stylesheet">
+	<link href="{% static 'styles/main.css' %}" rel="stylesheet">
+</head>
+<body>
+	<h1>Results - {{question.question_text}}</h1>
+	<p>{{question.pub_date}}</p>
+	<p>Total votes: {{total_votes.soma}}, {{question.number}}</p>
+	{% for choice in choices.all %}
+		<p>{{choice.choice_text}} - {{choice.votes}} votes - {{choice.percent}}%</p>
+	{% endfor %}
+</body>
+</html>
