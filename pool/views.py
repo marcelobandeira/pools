@@ -21,8 +21,7 @@ def question(request, question_id):
 def results(request, question_id):
 	question = Question.objects.get(id=question_id)
 	total_votes = question.choices.aggregate(soma = Sum('votes'))
-	# choices = question.choices.annotate(percent= F('votes') / total_votes['soma'] * 100)
-	choices = question.choices.annotate(percent= Cast(Sum('votes'), FloatField()) / total_votes['soma'] * 100)
+	choices = question.choices.annotate(percent= Cast('votes', FloatField()) / total_votes['soma'] * 100)
 
 	return render(request, 'results.html', {'question': question, 'total_votes':total_votes, 'choices':choices})
 
