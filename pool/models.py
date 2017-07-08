@@ -20,6 +20,4 @@ class Choice(models.Model):
 
 		total_votes = self.question.choices.aggregate(soma = Sum('votes'))
 		
-		percent = float(self.votes) / total_votes['soma'] * 100
-
-		return percent
+		return round(float(self.votes) / total_votes['soma'] * 100, 2)
