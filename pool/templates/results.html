@@ -55,7 +55,7 @@
 		<p>{{question.pub_date}}</p>
 		<p>Total votes: {{total_votes.soma}}, {{question.number}}</p>
 		{% for choice in choices.all %}
-			<p>{{choice.choice_text}} - {{choice.votes}} votes</p>
+			<p>{{choice.choice_text}} - {{choice.votes}} votes - {{choice.percent_prop}}</p>
 		{% endfor %}
 
 		<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
