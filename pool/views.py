@@ -31,8 +31,7 @@ def vote(request, question_id):
 
 def add_vote(request, choice_id):
 	choice = Choice.objects.get(id=choice_id)
-	choice.votes = choice.votes + 1
-	choice.save()
+	choice.add_vote()
 
 	return redirect('index')
 

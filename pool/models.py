@@ -15,9 +15,12 @@ class Choice(models.Model):
 	choice_text = models.CharField(max_length=500)
 	votes = models.IntegerField(default=0)
 
+	def add_vote(self):
+		self.votes = self.votes + 1
+		self.save()
+
 	@property
 	def percent_prop(self):
-
 		total_votes = self.question.choices.aggregate(soma = Sum('votes'))
 		
 		return round(float(self.votes) / total_votes['soma'] * 100, 2)
